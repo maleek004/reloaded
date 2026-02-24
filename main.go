@@ -60,28 +60,25 @@ func main() {
 			utils.Parsepunct(word, index, text)
 
 		case "'":
-			if index == len(text) {
+			if (index == len(text)) || (index == len(text)-1) {
+				fmt.Println("Reached here 1")
 				text[index-1] += "'"
 				text[index] = ""
-			} else if index == 0 {
+			} else if index <= 1 {
+				fmt.Println("Reached here 2")
 				text[index+1] = "'" + text[index+1]
 				text[index] = ""
-			}
-			if index >= 2 {
-				if text[index-2] == "'" {
-					text[index-1] += "'"
-					text[index] = ""
-
-				} else if text[index+2] == "'" {
+			} else {
+				fmt.Println("Reached here 3")
+				if strings.HasSuffix(text[index+1], "'") || text[index+2] == "'" {
+					fmt.Println("Reached here 4")
 					text[index+1] = "'" + text[index+1]
 					text[index] = ""
-				}
-			} else if index <= len(text)-2 {
-				if text[index+2] == "'" {
-					text[index+1] += "'"
+				} else if strings.HasPrefix(text[index-1], "'") || text[index-2] == "'" {
+					fmt.Println("Reached here 5")
+					text[index-1] += "'"
 					text[index] = ""
 				}
-
 			}
 		}
 	}
