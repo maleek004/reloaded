@@ -27,7 +27,7 @@ func main() {
 	}
 
 	// Process input bytes
-	finalString := utils.ParseInput(content)
+	finalString := utils.ParseInput(string(content))
 
 	//Write processed text to output file
 	err = os.WriteFile(outputFile, []byte(finalString), 0644)

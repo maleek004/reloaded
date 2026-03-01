@@ -5,8 +5,8 @@ import (
 	"strings"
 )
 
-func ParseInput(content []byte) string {
-	text := strings.Fields(string(content))
+func ParseInput(content string) string {
+	text := strings.Fields(content)
 
 	for index, word := range text {
 		switch word {

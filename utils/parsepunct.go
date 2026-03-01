@@ -21,7 +21,7 @@ func Parsepunct(s string, index int, text []string) {
 
 	for i, char := range runes {
 		if slices.Contains(punctuations, char) || char == 39 {
-			appendToPreviousWord(index, text, string(char)) // Adding te punctuation to the previous word in the slice of texts
+			appendToPreviousWord(index, text, string(char)) // Adding te punctuation to the previous word in the slice of texts while skipping all empty strings
 		} else {
 			// as soon as we find a character that is not a punctuation, update our slice of words with the remaining charcater from the first non punctuation, and return the function
 			text[index] = string(runes[i:])
