@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 	"reloaded/utils"
-	"strings"
 )
 
 func main() {
@@ -27,39 +26,11 @@ func main() {
 		return
 	}
 
-	text := strings.Fields(string(content))
-
-	for index, word := range text {
-		switch word {
-
-		case "(hex)":
-			utils.Hexa(index, text)
-		case "(bin)":
-			utils.Binary(index, text)
-
-		case "(up)":
-			utils.Upper(index, text)
-
-		case "(low)":
-			utils.Lower(index, text)
-
-		case "(cap)":
-			utils.Capitalize(index, text)
-
-		case ",", ".", "?", "!", ":", ";", "...":
-			utils.Parsepunct(word, index, text)
-
-		case "'":
-			utils.Parsequotes(index, text)
-		}
-	}
-
-	final := strings.Join(strings.Fields(strings.Join(text, " ")), " ")
-
-	// Process input string
+	// Process input bytes
+	finalString := utils.ParseInput(string(content))
 
 	//Write processed text to output file
-	err = os.WriteFile(outputFile, []byte(final), 0644)
+	err = os.WriteFile(outputFile, []byte(finalString), 0644)
 	if err != nil {
 		fmt.Println("Error writing file: ", err)
 		return

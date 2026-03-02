@@ -1,0 +1,40 @@
+package utils
+
+import (
+	"fmt"
+	"strconv"
+	"strings"
+)
+
+func Capitalize(s string) string {
+	runes := []rune(s)
+	runes[0] = runes[0] - 32
+
+	return string(runes)
+}
+
+func GetNPreviousWords(s string) int {
+	num, err := strconv.Atoi(strings.TrimSuffix(s, ")"))
+	if err != nil {
+		fmt.Println("HelperFunctionError --> extracting number from '", s, "' failed 🚧, defaulting to 1")
+		return 1
+	}
+	return num
+}
+
+func ApplyToPrevWords(index int, text []string, n int, action func(string) string, multiple bool) {
+	for i := index - 1; i >= 0 && n > 0; i-- {
+		if text[i] == "" {
+			continue
+		}
+
+		text[i] = action(text[i])
+		n--
+
+	}
+
+	InsertEmptyString(index, text)
+	if multiple {
+		InsertEmptyString(index+1, text)
+	}
+}

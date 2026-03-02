@@ -1,66 +1,25 @@
 package utils
 
-import (
-	"strconv"
-	"strings"
-)
-
-func Capitalize(index int, text []string) {
-	runes := []rune(text[index-1])
-	runes[0] = runes[0] - 32
-	text[index-1] = string(runes)
+func InsertEmptyString(index int, text []string) {
 	text[index] = ""
 }
 
-func Parsepunct(s string, index int, text []string) {
-	if text[index-2] == "" && text[index-1] == "" {
-		text[index-3] += s
-	} else if text[index-1] == "" {
-		text[index-2] += s
-	} else {
-		text[index-1] += s
-	}
-	text[index] = ""
-}
-
-func Lower(index int, text []string) {
-	res := strings.ToLower(text[index-1])
-	text[index-1] = res
-	text[index] = ""
-}
-
-func Upper(index int, text []string) {
-	res := strings.ToUpper(text[index-1])
-	text[index-1] = res
-	text[index] = ""
-}
-
-func Binary(index int, text []string) {
-	res, _ := strconv.ParseInt(text[index-1], 2, 32)
-	text[index-1] = strconv.Itoa(int(res))
-	text[index] = ""
-}
-
-func Hexa(index int, text []string) {
-	res, _ := strconv.ParseInt(text[index-1], 16, 32)
-	text[index-1] = strconv.Itoa(int(res))
-	text[index] = ""
-}
-
-func Parsequotes(index int, text []string) {
-	if (index == len(text)) || (index == len(text)-1) {
-		text[index-1] += "'"
-		text[index] = ""
-	} else if index <= 1 {
-		text[index+1] = "'" + text[index+1]
-		text[index] = ""
-	} else {
-		if strings.HasSuffix(text[index+1], "'") || text[index+2] == "'" {
-			text[index+1] = "'" + text[index+1]
-			text[index] = ""
-		} else if strings.HasPrefix(text[index-1], "'") || text[index-2] == "'" {
-			text[index-1] += "'"
-			text[index] = ""
+func appendToPreviousWord(index int, text []string, s string) {
+	//Skips Possible Empty Spaces in our slice of words while trying to append string to the previous word
+	for i := index - 1; i >= 0; i-- {
+		if text[i] != "" {
+			text[i] += s
+			break
 		}
 	}
 }
+
+// func S2PES(index int, text []string, s string) { //Skips 2 Possible Empty Spaces in our slice of words while trying to append string to the previous word
+// 	if text[index-2] == "" && text[index-1] == "" {
+// 		text[index-3] += s
+// 	} else if text[index-1] == "" {
+// 		text[index-2] += s
+// 	} else {
+// 		text[index-1] += s
+// 	}
+// }
