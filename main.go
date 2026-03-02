@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 	"reloaded/utils"
-	"strconv"
 	"strings"
 )
 
@@ -32,54 +31,26 @@ func main() {
 
 	for index, word := range text {
 		switch word {
+
 		case "(hex)":
-			res, _ := strconv.ParseInt(text[index-1], 16, 32)
-			text[index-1] = strconv.Itoa(int(res))
-			text[index] = ""
+			utils.Hexa(index, text)
 		case "(bin)":
-			res, _ := strconv.ParseInt(text[index-1], 2, 32)
-			text[index-1] = strconv.Itoa(int(res))
-			text[index] = ""
+			utils.Binary(index, text)
 
 		case "(up)":
-			res := strings.ToUpper(text[index-1])
-			text[index-1] = res
-			text[index] = ""
+			utils.Upper(index, text)
+
 		case "(low)":
-			res := strings.ToLower(text[index-1])
-			text[index-1] = res
-			text[index] = ""
+			utils.Lower(index, text)
 
 		case "(cap)":
-			res := utils.Capitalize(text[index-1])
-			text[index-1] = res
-			text[index] = ""
+			utils.Capitalize(index, text)
 
 		case ",", ".", "?", "!", ":", ";", "...":
-
 			utils.Parsepunct(word, index, text)
 
 		case "'":
-			if (index == len(text)) || (index == len(text)-1) {
-				fmt.Println("Reached here 1")
-				text[index-1] += "'"
-				text[index] = ""
-			} else if index <= 1 {
-				fmt.Println("Reached here 2")
-				text[index+1] = "'" + text[index+1]
-				text[index] = ""
-			} else {
-				fmt.Println("Reached here 3")
-				if strings.HasSuffix(text[index+1], "'") || text[index+2] == "'" {
-					fmt.Println("Reached here 4")
-					text[index+1] = "'" + text[index+1]
-					text[index] = ""
-				} else if strings.HasPrefix(text[index-1], "'") || text[index-2] == "'" {
-					fmt.Println("Reached here 5")
-					text[index-1] += "'"
-					text[index] = ""
-				}
-			}
+			utils.Parsequotes(index, text)
 		}
 	}
 
