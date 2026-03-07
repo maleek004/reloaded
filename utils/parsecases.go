@@ -6,11 +6,11 @@ import (
 	"strings"
 )
 
-func Capitalize(s string) string {
-	runes := []rune(s)
-	runes[0] = runes[0] - 32
-
-	return string(runes)
+func Capitalize(word string) string {
+	if word == "" {
+		return ""
+	}
+	return strings.Title(word)
 }
 
 func GetNPreviousWords(s string) int {
